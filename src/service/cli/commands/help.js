@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
 const chalk = require(`chalk`);
 
 module.exports = {
-  name: 3,
+  name: `--help`,
   run() {
     const text = `
     Программа запускает http-сервер и формирует файл с данными для API.

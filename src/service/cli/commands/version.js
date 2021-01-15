@@ -2,7 +2,7 @@
 
 const chalk = require(`chalk`);
 
-const {version} = require(`../../../package.json`);
+const {version} = require(`../../../../package.json`);
 
 module.exports = {
   name: `--version`,
