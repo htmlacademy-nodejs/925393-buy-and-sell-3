@@ -17,6 +17,7 @@ module.exports.getRandomInt = (min, max) => {
  * @function
  * @name shuffle
  * @param {Array} someArray
+ * @return {Array}
  */
 module.exports.shuffle = (someArray) => {
   for (let i = someArray.length - 1; i > 0; i--) {
