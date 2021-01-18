@@ -39,7 +39,6 @@ module.exports = {
 
     const pathUploadData = path.join(process.cwd(), `../../${FILE_NAME}`);
 
-    // Обернули fs.writeFile в promise
     const write = util.promisify(fs.writeFile);
 
     try {

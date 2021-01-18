@@ -7,7 +7,6 @@
  * @param {number} max
  * @return {number}
  */
-
 module.exports.getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -19,7 +18,6 @@ module.exports.getRandomInt = (min, max) => {
  * @name shuffle
  * @param {Array} someArray
  */
-
 module.exports.shuffle = (someArray) => {
   for (let i = someArray.length - 1; i > 0; i--) {
     const randomPosition = Math.floor(Math.random() * i);
