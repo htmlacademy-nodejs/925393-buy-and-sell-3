@@ -3,6 +3,7 @@
 const fs = require(`fs`);
 const path = require(`path`);
 const chalk = require(`chalk`);
+const util = require(`util`);
 
 const {TITLES, SENTENCES, CATEGORIES, OFFER_TYPE} = require(`../data_for_generate.js`);
 const {getRandomInt, shuffle} = require(`../../../utils`);
@@ -31,19 +32,20 @@ const generateOffers = (count) => {
 
 module.exports = {
   name: `--generate`,
-  run(arg) {
+  async run(arg) {
     const [count] = arg;
     const countOffer = Number.parseInt(count, 10) || DEFAULT_COUNT;
     const content = JSON.stringify(generateOffers(countOffer));
 
     const pathUploadData = path.join(process.cwd(), `../../${FILE_NAME}`);
 
-    fs.writeFile(pathUploadData, content, (err) => {
-      if (err) {
-        console.log(chalk.red(`Ошибка! Не удалось сгенерировать данные!`));
-      } else {
-        console.log(chalk.green(`Данные успешно сгенерированы!  Файл находиться тут --> ${pathUploadData}`));
-      }
-    });
+    const write = util.promisify(fs.writeFile);
+
+    try {
+      await write(pathUploadData, content);
+      console.log(chalk.green(`Данные успешно сгенерированы!  Файл находиться тут --> ${pathUploadData}`));
+    } catch (err) {
+      console.log(chalk.red(`Ошибка! Не удалось сгенерировать данные!`));
+    }
   }
 };
