@@ -20,7 +20,10 @@ module.exports.DATA_PATH = {
   FILE_CATEGORIES_PATH: `../../data/categories.txt`,
 }
 
-
+module.exports.OFFER_TYPE = [
+  `offer`,
+  `sale`
+];
 
 module.exports.PICTURES_RESTRICT = {
   min: 1,
