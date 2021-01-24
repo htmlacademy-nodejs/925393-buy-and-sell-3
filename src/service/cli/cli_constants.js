@@ -3,6 +3,7 @@
 module.exports.DEFAULT_COMMAND = `--help`;
 module.exports.DEFAULT_COUNT = 1;
 module.exports.FILE_NAME = `mocks.json`;
+module.exports.DEFAULT_PORT = 3000
 
 module.exports.USER_ARGV_INDEX = 2;
 module.exports.EXIT_CODE = {
