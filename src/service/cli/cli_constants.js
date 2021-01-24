@@ -14,6 +14,13 @@ module.exports.RESTRICT = {
   min: 1000,
   max: 100000
 };
+module.exports.DATA_PATH = {
+  FILE_SENTENCES_PATH:`../../data/sentences.txt`,
+  FILE_TITLES_PATH: `../../data/titles.txt`,
+  FILE_CATEGORIES_PATH: `../../data/categories.txt`,
+}
+
+
 
 module.exports.PICTURES_RESTRICT = {
   min: 1,
