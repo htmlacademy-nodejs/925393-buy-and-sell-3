@@ -3,7 +3,7 @@
 const version = require(`./commands/version`);
 const help = require(`./commands/help`);
 const generate = require(`./commands/generate`);
-const server = require(`./commands/server`)
+const server = require(`./commands/server`);
 
 module.exports.cli = {
   [version.name]: version,

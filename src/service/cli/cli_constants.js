@@ -3,7 +3,7 @@
 module.exports.DEFAULT_COMMAND = `--help`;
 module.exports.DEFAULT_COUNT = 1;
 module.exports.FILE_NAME = `mocks.json`;
-module.exports.DEFAULT_PORT = 3000
+module.exports.DEFAULT_PORT = 3000;
 
 module.exports.USER_ARGV_INDEX = 2;
 module.exports.EXIT_CODE = {
@@ -16,10 +16,10 @@ module.exports.RESTRICT = {
   max: 100000
 };
 module.exports.DATA_PATH = {
-  FILE_SENTENCES_PATH:`../../data/sentences.txt`,
+  FILE_SENTENCES_PATH: `../../data/sentences.txt`,
   FILE_TITLES_PATH: `../../data/titles.txt`,
   FILE_CATEGORIES_PATH: `../../data/categories.txt`,
-}
+};
 
 module.exports.OFFER_TYPE = [
   `offer`,

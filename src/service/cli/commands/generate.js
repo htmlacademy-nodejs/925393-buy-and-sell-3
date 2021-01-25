@@ -10,11 +10,12 @@ const {DEFAULT_COUNT, RESTRICT, PICTURES_RESTRICT, FILE_NAME, DATA_PATH, OFFER_T
 const readContent = async (filePath) => {
   try {
     const content = await fs.readFile(filePath, `utf8`);
-    return content.split('\n')
+    return content.split(`\n`);
   } catch (err) {
     console.error(chalk.red(`
     Во время чтения файла произошла ошибка - ${err}.
     `));
+    return undefined;
   }
 };
 
