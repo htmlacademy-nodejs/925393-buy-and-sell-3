@@ -6,8 +6,8 @@
   "scripts": {
     "test": "npm run eslint",
     "eslint": "eslint --ext .js src/",
-    "start": "cross-env NODE_PATH=./ node ./src/service/service.js",
-    "server": "cross-env NODE_PATH=./ nodemon ./src/service/service.js --server"
+    "start": "cross-env NODE_PATH=. node ./src/service/service.js",
+    "server": "cross-env NODE_PATH=. nodemon ./src/service/service.js --server"
   },
   "repository": {
     "type": "git",
