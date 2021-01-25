@@ -30,3 +30,11 @@ module.exports.PICTURES_RESTRICT = {
   min: 1,
   max: 16
 };
+
+module.exports.HTTP_CODE = {
+  OK: 200,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+  FORBIDDEN: 403,
+  UNAUTHORIZED: 401,
+};
