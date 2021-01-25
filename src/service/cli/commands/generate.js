@@ -51,11 +51,11 @@ module.exports = {
 
     const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
 
-    const pathUploadData = path.join(process.cwd(), `../../${FILE_NAME}`);
+    const pathUpload = path.join(`${process.env.NODE_PATH}`, `${FILE_NAME}`);
 
     try {
-      await fs.writeFile(pathUploadData, content);
-      console.log(chalk.green(`Данные успешно сгенерированы!  Файл находиться тут --> ${pathUploadData}`));
+      await fs.writeFile(pathUpload, content);
+      console.log(chalk.green(`Данные успешно сгенерированы!  Файл находиться тут --> ${path.resolve(pathUpload)}`));
     } catch (err) {
       console.log(chalk.red(`Ошибка! Не удалось сгенерировать данные!`));
     }
