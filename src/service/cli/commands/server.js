@@ -2,6 +2,7 @@
 
 const chalk = require(`chalk`);
 const http = require(`http`);
+const path = require(`path`);
 const fs = require(`fs`).promises;
 const {DEFAULT_PORT, FILE_NAME, HTTP_CODE} = require(`../cli_constants`);
 
@@ -28,7 +29,7 @@ const onClientConnect = async (req, res) => {
   switch (req.url) {
     case `/`:
       try {
-        const pathToReadFile = `${process.env.NODE_PATH}${FILE_NAME}`;
+        const pathToReadFile = path.join(process.env.NODE_PATH, `${FILE_NAME}`);
         console.log(process.execPath);
         const fileContent = await fs.readFile(pathToReadFile);
         const mocks = JSON.parse(fileContent);
