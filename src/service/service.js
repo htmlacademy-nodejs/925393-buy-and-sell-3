@@ -15,8 +15,8 @@ const defaultRun = () => {
 };
 
 if (userCommand.length === 0) {
-  console.log(chalk.yellow(`Ознакомьтесь со справкой и введите необходимую команду для дальнейшей работы.`));
-  defaultRun();
+  console.log(chalk.yellow(`Ознакомьтесь со справкой --help и введите необходимые параметры для дальнейшей работы.`));
+  process.exit(EXIT_CODE.success);
 } else if (!cli[userCommand]) {
   console.log(chalk.red(`Такой команды не существует! Ознакомьтесь со справкой.`));
   defaultRun();

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npm run eslint",
     "eslint": "eslint --ext .js src/",
-    "start": "node ./src/service/service.js"
+    "start": "cross-env NODE_PATH=. node ./src/service/service.js",
+    "server": "cross-env NODE_PATH=. nodemon ./src/service/service.js --server"
   },
   "repository": {
     "type": "git",
@@ -19,8 +20,10 @@
   },
   "homepage": "https://github.com/EKoretsky/925393-buy-and-sell-3#readme",
   "devDependencies": {
+    "cross-env": "7.0.3",
     "eslint": "7.17.0",
-    "eslint-config-htmlacademy": "0.6.0"
+    "eslint-config-htmlacademy": "0.6.0",
+    "nodemon": "2.0.7"
   },
   "dependencies": {
     "chalk": "4.1.0"

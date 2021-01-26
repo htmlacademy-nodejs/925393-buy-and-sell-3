@@ -1,8 +1,11 @@
 "use strict";
 
+const path = require(`path`);
+
 module.exports.DEFAULT_COMMAND = `--help`;
 module.exports.DEFAULT_COUNT = 1;
 module.exports.FILE_NAME = `mocks.json`;
+module.exports.DEFAULT_PORT = 3000;
 
 module.exports.USER_ARGV_INDEX = 2;
 module.exports.EXIT_CODE = {
@@ -15,10 +18,10 @@ module.exports.RESTRICT = {
   max: 100000
 };
 module.exports.DATA_PATH = {
-  FILE_SENTENCES_PATH:`../../data/sentences.txt`,
-  FILE_TITLES_PATH: `../../data/titles.txt`,
-  FILE_CATEGORIES_PATH: `../../data/categories.txt`,
-}
+  FILE_SENTENCES_PATH: path.join(process.env.NODE_PATH, `data`, `sentences.txt`),
+  FILE_TITLES_PATH: path.join(process.env.NODE_PATH, `data`, `titles.txt`),
+  FILE_CATEGORIES_PATH: path.join(process.env.NODE_PATH, `data`, `categories.txt`),
+};
 
 module.exports.OFFER_TYPE = [
   `offer`,
@@ -28,4 +31,12 @@ module.exports.OFFER_TYPE = [
 module.exports.PICTURES_RESTRICT = {
   min: 1,
   max: 16
+};
+
+module.exports.HTTP_CODE = {
+  OK: 200,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+  FORBIDDEN: 403,
+  UNAUTHORIZED: 401,
 };
