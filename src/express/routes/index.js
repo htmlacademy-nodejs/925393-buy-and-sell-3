@@ -8,4 +8,4 @@ module.exports = {
   mainRoutes,
   offersRoutes,
   myRoutes,
-}
+};
