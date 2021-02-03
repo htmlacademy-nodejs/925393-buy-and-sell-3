@@ -1,0 +1,17 @@
+mixin categoryLinks(src, srcset, title, number)
+  li.categories-list__item
+    a.category-tile.category-tile--default(href='#')
+      span.category-tile__image
+        img(src=`${src}` srcset=`${srcset}` alt='Иконка категории')
+      span.category-tile__label= `${title}`
+        |&nbsp;
+        span.category-tile__qty.js-qty= `${number}`
+
+mixin ticketTitle(title)
+  h3.ticket-card__title
+    a(href='#')= `${title}`
+
+mixin ticketPrice(price)
+  p.ticket-card__price
+    span.js-sum= `${price}`
+    |  ₽
