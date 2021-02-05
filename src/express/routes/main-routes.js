@@ -5,7 +5,7 @@ const {Router} = require(`express`);
 const mainRoutes = new Router();
 
 mainRoutes.get(`/`, (req, res) => {
-  res.render('pages/main/index')
+  res.render('pages/main/main')
 });
 
 mainRoutes.get(`/login`, (req, res) => {
