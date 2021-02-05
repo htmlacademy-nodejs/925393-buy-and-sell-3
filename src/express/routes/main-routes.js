@@ -5,16 +5,19 @@ const {Router} = require(`express`);
 const mainRoutes = new Router();
 
 mainRoutes.get(`/`, (req, res) => {
-  res.render('pages/main/index', {
-    title: 'rvrrvrv'
-  })
-  console.log(`main`)
+  res.render('pages/main/index')
 });
+
 mainRoutes.get(`/login`, (req, res) => {
   res.render('pages/login/login')
-  console.log(`/login`)
 });
-mainRoutes.get(`/register`, (req, res) => console.log(`/register`));
-mainRoutes.get(`/search`, (req, res) => console.log(`/search`));
+
+mainRoutes.get(`/register`, (req, res) => {
+  res.render('pages/sign-up/sign-up')
+});
+
+mainRoutes.get(`/search`, (req, res) => {
+  res.render('pages/search-result/search-result')
+});
 
 module.exports = mainRoutes;
