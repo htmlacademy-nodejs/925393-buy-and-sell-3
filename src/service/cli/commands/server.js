@@ -4,7 +4,8 @@ const chalk = require(`chalk`);
 const http = require(`http`);
 const path = require(`path`);
 const fs = require(`fs`).promises;
-const {DEFAULT_PORT, FILE_NAME, HTTP_CODE} = require(`../cli_constants`);
+const {StatusCodes} = require(`http-status-codes`);
+const {DEFAULT_PORT, FILE_NAME} = require(`../cli_constants`);
 
 const sendResponse = (res, statusCode, val) => {
   const template = `
@@ -35,14 +36,14 @@ const onClientConnect = async (req, res) => {
         const mocks = JSON.parse(fileContent);
 
         const val = mocks.map((post) => `<li>${post.title}</li>`).join(``);
-        sendResponse(res, HTTP_CODE.OK, `<ul>${val}</ul>`);
+        sendResponse(res, StatusCodes.OK, `<ul>${val}</ul>`);
       } catch (err) {
-        sendResponse(res, HTTP_CODE.NOT_FOUND, notFoundMessageText);
+        sendResponse(res, StatusCodes.NOT_FOUND, notFoundMessageText);
       }
 
       break;
     default:
-      sendResponse(res, HTTP_CODE.NOT_FOUND, notFoundMessageText);
+      sendResponse(res, StatusCodes.NOT_FOUND, notFoundMessageText);
       break;
   }
 };
