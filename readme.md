@@ -1,7 +1,7 @@
 # Учебный проект «Куплю. Продам» [![Build status][travis-image]][travis-url]
 
 * Студент: [Eugene Vladimirovich](https://up.htmlacademy.ru/nodejs/3/user/925393).
-* Наставник: `Сергей Рожков`.
+* Наставник: `Юрий Кучма`.
 
 ---
 
