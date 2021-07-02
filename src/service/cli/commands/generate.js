@@ -3,9 +3,10 @@
 const fs = require(`fs`).promises;
 const path = require(`path`);
 const chalk = require(`chalk`);
+const {nanoid} = require(`nanoid`);
 
 const {getRandomInt, shuffle} = require(`../../../utils`);
-const {DEFAULT_COUNT, RESTRICT, PICTURES_RESTRICT, FILE_NAME, DATA_PATH, OFFER_TYPE} = require(`../cli_constants`);
+const {DEFAULT_COUNT, RESTRICT, PICTURES_RESTRICT, FILE_NAME, DATA_PATH, OFFER_TYPE, MAX_ID_LENGTH} = require(`../cli_constants`);
 
 const readContent = async (filePath) => {
   try {
@@ -26,6 +27,7 @@ const generateOffers = (count, titles, categories, sentences) => {
 
   return arr.map(() => (
     {
+      id: nanoid(MAX_ID_LENGTH),
       title: titles[getRandomInt(0, titles.length - 1)],
       picture: getPictureName(getRandomInt(PICTURES_RESTRICT.min, PICTURES_RESTRICT.max)),
       description: shuffle(sentences).slice(0, 5).join(` `),
