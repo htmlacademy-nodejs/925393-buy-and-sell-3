@@ -24,7 +24,7 @@ module.exports = {
     const port = Number.parseInt(customPort, 10) || DEFAULT_PORT;
 
     app.listen(port, () => {
-      console.log(`Сервер принимает подключения на ${chalk.blue(port)})`)
+      console.log(`Сервер принимает подключения на ${chalk.blue(port)}`)
     });
   }
 };
