@@ -13,6 +13,8 @@ module.exports.EXIT_CODE = {
   success: 0,
 };
 
+module.exports.MAX_ID_LENGTH = 6;
+
 module.exports.RESTRICT = {
   min: 1000,
   max: 100000
