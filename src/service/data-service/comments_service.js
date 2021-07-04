@@ -20,6 +20,12 @@ class CommentService {
     const offer = this._offers.find((item) => item.id === offerId);
     return offer.comments;
   }
+
+  drop(id, offer) {
+    const offersComment = offer.comments.find((comment) => comment.id === id);
+    const indexComment = offer.comments.indexOf(offersComment);
+    return offer.comments.splice(indexComment, 1);
+  }
 }
 
 module.exports = CommentService;
