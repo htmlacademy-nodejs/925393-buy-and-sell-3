@@ -10,10 +10,11 @@ module.exports = (req, res, next) => {
   const keysExists = commentKeys.every((key) => keys.includes(key));
 
   if (!keysExists) {
-    res
+    return res
       .status(StatusCodes.BAD_REQUEST)
       .json(`Bad request: в объекте запроса определены не все поля`);
   }
 
   next();
+  return null;
 };

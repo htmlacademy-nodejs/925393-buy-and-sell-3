@@ -8,11 +8,11 @@ const route = new Router();
 module.exports = (app, service) => {
   app.use(`/search`, route);
 
-  route.get(`/`, (req, res) => {
+  route.get(`/`, (req, res, next) => {
     try {
       const {query = ``} = req.query;
       if (!query) {
-        res
+        return res
           .status(StatusCodes.BAD_REQUEST)
           .json(getReasonPhrase(StatusCodes.BAD_REQUEST));
       }
@@ -23,7 +23,8 @@ module.exports = (app, service) => {
         .status(searchStatus)
         .json(searchResults);
     } catch (e) {
-      throw new Error(e);
+      next(e);
     }
+    return null;
   });
 };

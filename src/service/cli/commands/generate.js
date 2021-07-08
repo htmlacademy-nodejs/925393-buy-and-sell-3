@@ -40,7 +40,9 @@ const generateComments = (count, comments) => (
   }))
 );
 
-const generateOffers = (count, titles, categories, sentences, comments) => {
+const generateOffers = (count, options) => {
+  const {titles, sentences, categories, comments} = options;
+
   const arr = Array(count).fill({});
   return arr.map(() => (
     {
@@ -54,7 +56,7 @@ const generateOffers = (count, titles, categories, sentences, comments) => {
       get category() {
         const mixedCategories = shuffle(categories);
         return Array(getRandomInt(1, categories.length)).fill({}).map((i, idx) => mixedCategories[idx]);
-      }
+      },
     }
   ));
 };
@@ -70,7 +72,12 @@ module.exports = {
     const categories = await readContent(DATA_PATH.FILE_CATEGORIES_PATH);
     const comments = await readContent(DATA_PATH.FILE_COMMENTS_PATH);
 
-    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences, comments));
+    const content = JSON.stringify(generateOffers(countOffer, {
+      titles,
+      sentences,
+      categories,
+      comments,
+    }));
 
     const pathUpload = path.join(`${process.env.NODE_PATH}`, `${FILE_NAME}`);
 
@@ -80,5 +87,5 @@ module.exports = {
     } catch (err) {
       console.log(chalk.red(`Ошибка! Не удалось сгенерировать данные!`));
     }
-  }
+  },
 };

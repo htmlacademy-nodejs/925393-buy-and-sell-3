@@ -15,27 +15,24 @@ module.exports = (app, offersService, commentsService) => {
 
   // GET Запросы //
 
-  offersRoute.get(`/`, (req, res) => {
+  offersRoute.get(`/`, (req, res, next) => {
     try {
       const offers = offersService.findAll();
       res
         .status(StatusCodes.OK)
         .json(offers);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
   });
 
-  offersRoute.get(`/:offerId`, (req, res) => {
+  offersRoute.get(`/:offerId`, (req, res, next) => {
     try {
       const {offerId} = req.params;
       const offer = offersService.findOne(offerId);
 
       if (!offer) {
-        res
+        return res
           .status(StatusCodes.NOT_FOUND)
           .json(`Not found with ${offerId}`);
       }
@@ -43,14 +40,12 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.OK)
         .json(offer);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
+    return null;
   });
 
-  offersRoute.get(`/:offerId/comments`, offersExists(offersService), (req, res) => {
+  offersRoute.get(`/:offerId/comments`, offersExists(offersService), (req, res, next) => {
     try {
       const {offerId} = req.locals;
       const comments = commentsService.findAll(offerId);
@@ -59,30 +54,24 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.OK)
         .json(comments);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
   });
 
   // POST запросы //
 
-  offersRoute.post(`/`, offersValidator, (req, res) => {
+  offersRoute.post(`/`, offersValidator, (req, res, next) => {
     try {
       const offer = offersService.create(req.body);
       res
         .status(StatusCodes.CREATED)
         .json(offer);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
   });
 
-  offersRoute.post(`/:offerId/comments`, [offersExists(offersService), commentsValidator], (req, res) => {
+  offersRoute.post(`/:offerId/comments`, [offersExists(offersService), commentsValidator], (req, res, next) => {
     try {
       const {offerId} = req.params;
       const comment = commentsService.create(offerId, req.body);
@@ -90,22 +79,19 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.CREATED)
         .json(comment);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
   });
 
   // PUT запросы //
 
-  offersRoute.put(`/:offerId`, offersValidator, (req, res) => {
+  offersRoute.put(`/:offerId`, offersValidator, (req, res, next) => {
     try {
       const {offerId} = req.params;
 
       const updated = offersService.update(offerId, req.body);
       if (!updated) {
-        res.
+        return res.
           status(StatusCodes.NOT_FOUND)
           .json(getReasonPhrase(StatusCodes.NOT_FOUND));
       }
@@ -113,23 +99,21 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.OK)
         .json(updated);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
+    return null;
   });
 
   // DELETE запросы //
 
-  offersRoute.delete(`/:offerId`, (req, res) => {
+  offersRoute.delete(`/:offerId`, (req, res, next) => {
     try {
       const {offerId} = req.params;
 
       const offer = offersService.drop(offerId);
 
       if (!offer) {
-        res
+        return res
           .status(StatusCodes.NOT_FOUND)
           .json(getReasonPhrase(StatusCodes.NOT_FOUND));
       }
@@ -137,21 +121,19 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.OK)
         .json(offer);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
+    return null;
   });
 
-  offersRoute.delete(`/:offerId/comments/:commentId`, offersExists(offersService), (req, res) => {
+  offersRoute.delete(`/:offerId/comments/:commentId`, offersExists(offersService), (req, res, next) => {
     try {
       const {commentId} = req.params;
       const {offer} = res.locals;
       const deleted = commentsService.drop(commentId, offer);
 
       if (!deleted) {
-        res
+        return res
           .status(StatusCodes.NOT_FOUND)
           .json(getReasonPhrase(StatusCodes.NOT_FOUND));
       }
@@ -159,10 +141,8 @@ module.exports = (app, offersService, commentsService) => {
         .status(StatusCodes.OK)
         .json(deleted);
     } catch (e) {
-      res
-        .status(StatusCodes.INTERNAL_SERVER_ERROR)
-        .json(getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR));
-      throw new Error(e);
+      next(e);
     }
+    return null;
   });
 };
