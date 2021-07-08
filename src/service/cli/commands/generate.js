@@ -3,9 +3,19 @@
 const fs = require(`fs`).promises;
 const path = require(`path`);
 const chalk = require(`chalk`);
+const {nanoid} = require(`nanoid`);
 
 const {getRandomInt, shuffle} = require(`../../../utils`);
-const {DEFAULT_COUNT, RESTRICT, PICTURES_RESTRICT, FILE_NAME, DATA_PATH, OFFER_TYPE} = require(`../cli_constants`);
+const {
+  DEFAULT_COUNT,
+  RESTRICT,
+  PICTURES_RESTRICT,
+  FILE_NAME,
+  DATA_PATH,
+  OFFER_TYPE,
+  MAX_ID_LENGTH,
+  MAX_COMMENTS,
+} = require(`../cli_constants`);
 
 const readContent = async (filePath) => {
   try {
@@ -21,20 +31,32 @@ const readContent = async (filePath) => {
 
 const getPictureName = (num) => `item${num.toString().padStart(2, `0`)}.jpg`;
 
-const generateOffers = (count, titles, categories, sentences) => {
-  const arr = Array(count).fill({});
+const generateComments = (count, comments) => (
+  Array(count).fill({}).map(() => ({
+    id: nanoid(MAX_ID_LENGTH),
+    text: shuffle(comments)
+      .slice(0, getRandomInt(1, 3))
+      .join(` `),
+  }))
+);
 
+const generateOffers = (count, options) => {
+  const {titles, sentences, categories, comments} = options;
+
+  const arr = Array(count).fill({});
   return arr.map(() => (
     {
+      id: nanoid(MAX_ID_LENGTH),
       title: titles[getRandomInt(0, titles.length - 1)],
       picture: getPictureName(getRandomInt(PICTURES_RESTRICT.min, PICTURES_RESTRICT.max)),
       description: shuffle(sentences).slice(0, 5).join(` `),
       type: OFFER_TYPE[getRandomInt(0, OFFER_TYPE.length - 1)],
       sum: getRandomInt(RESTRICT.min, RESTRICT.max),
+      comments: generateComments(getRandomInt(1, MAX_COMMENTS), comments),
       get category() {
         const mixedCategories = shuffle(categories);
         return Array(getRandomInt(1, categories.length)).fill({}).map((i, idx) => mixedCategories[idx]);
-      }
+      },
     }
   ));
 };
@@ -48,8 +70,14 @@ module.exports = {
     const sentences = await readContent(DATA_PATH.FILE_SENTENCES_PATH);
     const titles = await readContent(DATA_PATH.FILE_TITLES_PATH);
     const categories = await readContent(DATA_PATH.FILE_CATEGORIES_PATH);
+    const comments = await readContent(DATA_PATH.FILE_COMMENTS_PATH);
 
-    const content = JSON.stringify(generateOffers(countOffer, titles, categories, sentences));
+    const content = JSON.stringify(generateOffers(countOffer, {
+      titles,
+      sentences,
+      categories,
+      comments,
+    }));
 
     const pathUpload = path.join(`${process.env.NODE_PATH}`, `${FILE_NAME}`);
 
@@ -59,5 +87,5 @@ module.exports = {
     } catch (err) {
       console.log(chalk.red(`Ошибка! Не удалось сгенерировать данные!`));
     }
-  }
+  },
 };
