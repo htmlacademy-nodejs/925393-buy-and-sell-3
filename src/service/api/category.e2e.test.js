@@ -7,7 +7,7 @@ const DataService = require(`../data-service/category_service`);
 const category = require(`./category_routes`);
 const {StatusCodes} = require(`http-status-codes`);
 
-const mockData = _getMockData();
+const mockData = getMockData();
 
 const app = express();
 app.use(express.json());
@@ -26,14 +26,13 @@ describe(`API returns category list`, () => {
 
   test(`Status code 200`, () => expect(response.statusCode).toBe(StatusCodes.OK));
   test(`Returns list of 6 categories`, () => expect(response.body.length).toBe(6));
-
   test(`Category names are "Журналы", "Игры", "Животные"`, () => expect(response.body).toEqual(
       expect.arrayContaining([`Журналы`, `Игры`, `Животные`]),
   ));
 });
 
 
-function _getMockData() {
+function getMockData() {
   return [
     {
       "id": `nvK5fe`,
