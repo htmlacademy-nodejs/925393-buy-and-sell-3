@@ -4,10 +4,10 @@
   "description": "Куплю.Продам",
   "main": "./src/service/service.js",
   "scripts": {
-    "test": "npm run eslint && npm run jest",
-    "test::rest": "npm run jest",
+    "test": "cross-env NODE_PATH=. eslint && npm run jest",
+    "test::rest": "cross-env NODE_PATH=. jest",
     "jest": "jest",
-    "eslint": "eslint --ext .js src/",
+    "eslint": "cross-env NODE_PATH=. eslint --ext .js src/",
     "start": "cross-env NODE_PATH=. node ./src/service/service.js",
     "server": "cross-env NODE_PATH=. nodemon ./src/service/service.js --server",
     "start-front-server": "cross-env NODE_PATH=. node ./src/express/index.js"
