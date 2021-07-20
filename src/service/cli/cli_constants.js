@@ -38,3 +38,8 @@ module.exports.PICTURES_RESTRICT = {
   min: 1,
   max: 16
 };
+
+module.exports.ENV = {
+  DEVELOPMENT: `development`,
+  PRODUCTION: `production`,
+};

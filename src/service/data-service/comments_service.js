@@ -24,6 +24,9 @@ class CommentService {
   drop(id, offer) {
     const offersComment = offer.comments.find((comment) => comment.id === id);
     const indexComment = offer.comments.indexOf(offersComment);
+    if (indexComment < 0) {
+      return null;
+    }
     return offer.comments.splice(indexComment, 1);
   }
 }

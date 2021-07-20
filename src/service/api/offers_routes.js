@@ -47,7 +47,7 @@ module.exports = (app, offersService, commentsService) => {
 
   offersRoute.get(`/:offerId/comments`, offersExists(offersService), (req, res, next) => {
     try {
-      const {offerId} = req.locals;
+      const {offerId} = res.locals;
       const comments = commentsService.findAll(offerId);
 
       res
@@ -85,16 +85,11 @@ module.exports = (app, offersService, commentsService) => {
 
   // PUT запросы //
 
-  offersRoute.put(`/:offerId`, offersValidator, (req, res, next) => {
+  offersRoute.put(`/:offerId`, [offersExists(offersService), offersValidator], (req, res, next) => {
     try {
       const {offerId} = req.params;
 
       const updated = offersService.update(offerId, req.body);
-      if (!updated) {
-        return res.
-          status(StatusCodes.NOT_FOUND)
-          .json(getReasonPhrase(StatusCodes.NOT_FOUND));
-      }
       res
         .status(StatusCodes.OK)
         .json(updated);
